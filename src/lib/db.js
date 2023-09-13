@@ -2,21 +2,11 @@ const { Sequelize } = require("sequelize");
 
 // Research how to obtain values from .env using dotenv library
 
-const connectDatabase = async () => {
-  const sequelize = new Sequelize(
-    "postgres://postgres:12345678@localhost:5432/state-it"
-  );
-
-  try {
-    await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-    return true;
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-    return false;
-  }
-};
+let sequelize = new Sequelize(
+  "postgres://postgres:12345678@localhost:5432/state-it"
+);
 
 module.exports = {
-  connectDatabase,
+  sequelize,
+  //connectDatabase,
 };

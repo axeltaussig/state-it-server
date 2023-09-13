@@ -1,8 +1,8 @@
 // Importing libraries
 const express = require("express");
-const { connectDatabase } = require("./lib/db");
+//const { connectDatabase } = require("./lib/db");
 const bodyParser = require("body-parser");
-const { Statement } = require("./models/Statement");
+const models = require("./models");
 
 // Create Express App
 const app = express();
@@ -12,8 +12,8 @@ const port = 5000;
 app.use(bodyParser.json());
 
 // Connect to Postgres
-if (connectDatabase()) console.log("Postgres OK");
-else console.log("Postgres ERROR");
+//if (connectDatabase()) console.log("Postgres OK");
+//else console.log("Postgres ERROR");
 
 app.post("/pushStatement", async (req, res) => {
   // Ir a la base de datos y recuperar una historia random
@@ -25,10 +25,17 @@ app.post("/pushStatement", async (req, res) => {
 
   // Save statement in database
   let document;
+  /*   let newDocument = Statement.build({
+    id: 1,
+    user,
+    statement,
+  });
+  console.log(newDocument.toJSON()); */
+  //await newDocument.save();
+  //return;
   try {
-    document = await Statement.create({
-      id: 1,
-      user: user,
+    document = await models.Statement.create({
+      user,
       statement,
     });
   } catch (error) {

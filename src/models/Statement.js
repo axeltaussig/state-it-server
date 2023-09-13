@@ -1,26 +1,51 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite::memory:");
+const Sequelize = require("sequelize");
 
-const Statement = sequelize.define("Statement", {
-  // Model attributes are defined here
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  user: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  statement: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+module.exports = function (sequelize) {
+  const { fn, DataTypes, Model } = Sequelize;
 
-// `sequelize.define` also returns the model
-console.log(Statement === sequelize.models.Statement); // true
+  class Statement extends Model {
+    toSanitisedJson() {
+      return {
+        id: this.id,
+        user: this.user,
+        statement: this.statement,
+        createdAt: this.createdAt,
+        updatedAt: this.updatedAt,
+      };
+    }
+  }
 
-module.exports = {
-  Statement,
+  Statement.init(
+    {
+      createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: fn("NOW"),
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: fn("NOW"),
+      },
+      user: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      statement: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      schema: "public",
+      tableName: "statements",
+      indexes: [
+        {
+          unique: true,
+          fields: ["id"],
+        },
+      ],
+    }
+  );
+
+  return Statement;
 };
