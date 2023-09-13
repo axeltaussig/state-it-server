@@ -1,5 +1,7 @@
 const { Sequelize } = require("sequelize");
 
+// Research how to obtain values from .env using dotenv library
+
 const connectDatabase = async () => {
   const sequelize = new Sequelize(
     "postgres://postgres:12345678@localhost:5432/state-it"

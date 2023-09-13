@@ -3,6 +3,11 @@ const sequelize = new Sequelize("sqlite::memory:");
 
 const Statement = sequelize.define("Statement", {
   // Model attributes are defined here
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   user: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -14,4 +19,8 @@ const Statement = sequelize.define("Statement", {
 });
 
 // `sequelize.define` also returns the model
-console.log(Statement === sequelize.models.User); // true
+console.log(Statement === sequelize.models.Statement); // true
+
+module.exports = {
+  Statement,
+};
