@@ -11,10 +11,6 @@ const port = 5000;
 // Adding body to req object (req.body)
 app.use(bodyParser.json());
 
-// Connect to Postgres
-//if (connectDatabase()) console.log("Postgres OK");
-//else console.log("Postgres ERROR");
-
 app.post("/pushStatement", async (req, res) => {
   // Ir a la base de datos y recuperar una historia random
   const { user, statement } = req.body;
@@ -25,14 +21,6 @@ app.post("/pushStatement", async (req, res) => {
 
   // Save statement in database
   let document;
-  /*   let newDocument = Statement.build({
-    id: 1,
-    user,
-    statement,
-  });
-  console.log(newDocument.toJSON()); */
-  //await newDocument.save();
-  //return;
   try {
     document = await models.Statement.create({
       user,

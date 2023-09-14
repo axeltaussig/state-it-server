@@ -1,4 +1,4 @@
-const { sequelize, Sequelize } = require("../lib/db");
+const { sequelize } = require("../lib/db");
 
 const models = {
   Statement: require("./Statement")(sequelize),

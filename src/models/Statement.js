@@ -36,14 +36,9 @@ module.exports = function (sequelize) {
     },
     {
       sequelize,
+      modelName: "Statement",
       schema: "public",
       tableName: "statements",
-      indexes: [
-        {
-          unique: true,
-          fields: ["id"],
-        },
-      ],
     }
   );
 
